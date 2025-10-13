@@ -6,6 +6,7 @@ import userRouter from "./routes/userRouter.js"
 import authRouter from "./routes/authRouter.js"
 import cookieParser from "cookie-parser"
 import assetRouter from "./routes/assetRouter.js"
+import createSuperAdmin from "./configs/createSuperAdmin.js"
 
 const app = express()
 
@@ -18,15 +19,21 @@ app.use(cors({
 app.use(cookieParser())
 
 //routes
-app.get('/',(req,res)=>{ res.send("demo server started")})  //demo
+app.get('/', (req, res) => { res.send("demo server started") })  //demo
 
-app.use('/api/v1/auth',authRouter)
-app.use('/api/v1/user',userRouter)
-app.use("/api/v1/asset",assetRouter)
+app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/user', userRouter)
+app.use("/api/v1/asset", assetRouter)
 
-//db connection
-dbConnect()
 
-app.listen(8080,()=>{
+
+app.listen(8080, async () => {
     console.log("server running at http://localhost:8080")
+
+    //db connection
+   await dbConnect()
+
+   //super admin
+   await createSuperAdmin()
+
 })

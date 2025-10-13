@@ -7,6 +7,7 @@ import ProtectedRoute from './ProtectedRoute'
 import Dashboard from './components/Home/Dashboard'
 import Assets from './components/Home/Assets'
 import { Toaster } from 'react-hot-toast'
+import Employees from './components/Home/Employees'
 
 
 
@@ -32,7 +33,11 @@ function App() {
 
           <Route index element={<Dashboard/>}></Route>
           <Route path='assets' element={<Assets/>}></Route>
-          <Route path='employees' element={<h1>Employees</h1>}></Route>
+          <Route path='admins' element={<h1>Admin</h1>}></Route>
+          <Route path='myAssets' element={<h1>myAssets</h1>}></Route>
+          <Route path='requests' element={<h1>Requests</h1>}></Route>
+          <Route path='profile' element={<h1>profile</h1>}></Route>
+          <Route path='employees' element={<Employees/>}></Route>
           <Route path='assigned-assets' element={<h1>Assigned assets</h1>}></Route>
         </Route>
         <Route path='*' element={<ErrorPage/>} />

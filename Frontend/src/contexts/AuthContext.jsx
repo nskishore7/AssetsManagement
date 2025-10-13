@@ -36,9 +36,21 @@ export function AuthProvider(props) {
             console.log(error)
         }
     }
+
+     const logout = async()=>{
+        try {
+            toast.loading("Logging out..........",{id:"logout"})
+             await axios.get("http://localhost:8080/api/v1/auth/logout",{withCredentials: true})
+             setUser(null)
+            toast.success("logged Out Successfully",{id:'logout'})
+        } catch (error) {
+             toast.error(error.response?.data?.error || "Something Went Wrong",{id:'logout'})
+            console.error("Logout failed:", error)
+        }
+    }
     return (
         <>
-            <authContext.Provider value={{ user, loading, login }}>
+            <authContext.Provider value={{ user, loading, login,logout}}>
                 {props.children}
             </authContext.Provider>
         </>

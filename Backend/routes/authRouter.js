@@ -1,5 +1,5 @@
 import express from "express"
-import { authStatus, loginUser } from "../controllers/authController.js"
+import { authStatus, loginUser, userLogout } from "../controllers/authController.js"
 import { verifyUser } from "../middlwares/verifyUser.js"
 
 
@@ -15,5 +15,10 @@ authRouter.post('/login',loginUser)
 //check user
 
 authRouter.get('/status',verifyUser,authStatus)
+
+
+//logout
+
+authRouter.get('/logout',userLogout)
 
 export default authRouter;

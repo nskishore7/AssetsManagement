@@ -56,3 +56,26 @@ export const authStatus = async (req, res) => {
         })
     }
 }
+
+
+
+
+export const userLogout = async (req, res) => {
+    try {
+       // clear cookies
+
+      const {token} = req.cookies
+      if(token){
+         res.clearCookie("token")
+       res.status(200).send({message:"Logout successfull"})
+      }else{
+        res.status(400).send({message:"user is not logged in"})
+      }
+
+    } catch (error) {
+        return res.status(500).send({
+            message: "something went wrong",
+            error: error.message
+        })
+    }
+}
