@@ -5,8 +5,10 @@ import { dbConnect } from "./configs/db.js"
 import userRouter from "./routes/userRouter.js"
 import authRouter from "./routes/authRouter.js"
 import cookieParser from "cookie-parser"
-import assetRouter from "./routes/assetRouter.js"
+
 import createSuperAdmin from "./configs/createSuperAdmin.js"
+import assetModelRouter from "./routes/assettModel.js"
+import assetItemRouter from "./routes/assetItemRoute.js"
 
 const app = express()
 
@@ -23,7 +25,8 @@ app.get('/', (req, res) => { res.send("demo server started") })  //demo
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
-app.use("/api/v1/asset", assetRouter)
+app.use("/api/v1/asset-model", assetModelRouter)
+app.use("/api/v1/asset-item", assetItemRouter)
 
 
 

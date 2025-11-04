@@ -8,6 +8,7 @@ import Dashboard from './components/Home/Dashboard'
 import Assets from './components/Home/Assets'
 import { Toaster } from 'react-hot-toast'
 import Employees from './components/Home/Employees'
+import Admins from './components/Home/Admins'
 
 
 
@@ -33,7 +34,7 @@ function App() {
 
           <Route index element={<Dashboard/>}></Route>
           <Route path='assets' element={<Assets/>}></Route>
-          <Route path='admins' element={<h1>Admin</h1>}></Route>
+          <Route path='admins' element={<Admins/>}></Route>
           <Route path='myAssets' element={<h1>myAssets</h1>}></Route>
           <Route path='requests' element={<h1>Requests</h1>}></Route>
           <Route path='profile' element={<h1>profile</h1>}></Route>

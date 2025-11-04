@@ -10,7 +10,7 @@ function Home() {
         <>
             <div className="flex w-full min-h-screen">
                 {/* sidebar */}
-                <div className="w-[20%] bg-amber-200">
+                <div className="w-[20%] dark:bg-gray-900">
                 <Sidebar/>
                 </div>
                 {/* main content */}

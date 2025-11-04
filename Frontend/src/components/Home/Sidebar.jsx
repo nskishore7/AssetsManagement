@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
 
@@ -28,16 +28,22 @@ function Sidebar() {
                     <h1 className='text-red-600 text-2xl text-center font-bold'>My Company</h1>
                 </div>
                 <div className='flex flex-col py-4 px-2 w-4/5 justify-center gap-8'>
-                    {
-                        links.map(mylink => {
-                            return <Link to={mylink.path} className='shadow-md shadow-gray-600 h-10 rounded-2xl text-center content-center text-2xl font-semibold cursor-pointer hover:bg-gray-200'>{mylink.label}</Link>
-
-                        })
-                    }
-                </div >
+          {links.map((mylink, index) => (
+            <NavLink
+              key={index}
+              to={mylink.path}
+              className={({ isActive }) =>
+                `shadow-md shadow-gray-600 h-10 rounded-2xl text-center content-center text-2xl font-semibold w-full text-white
+                ${isActive ? "bg-yellow-300" : ""}`
+              }
+            >
+              {mylink.label}
+            </NavLink>
+          ))}
+        </div>
 
                 <div className='flex flex-col py-4 px-2 w-4/5 flex-1 justify-end items-center gap-4'>
-                    <Link to="" className='shadow-md shadow-gray-600 h-10 rounded-2xl text-center content-center text-xl font-semibold w-full hover:bg-gray-200'>Profile</Link>
+                    <NavLink to="" className='shadow-md shadow-gray-600 h-10 rounded-2xl text-center content-center text-xl font-semibold w-full hover:bg-gray-200 text-white'>Profile</NavLink>
                     <button className='bg-red-500 rounded-2xl h-10 w-1/2 text-xl font-semibold text-white cursor-pointer hover:text-red-500' onClick={handleLogout}>logout</button>
                 </div>
             </aside>

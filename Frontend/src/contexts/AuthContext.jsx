@@ -48,6 +48,8 @@ export function AuthProvider(props) {
             console.error("Logout failed:", error)
         }
     }
+
+    
     return (
         <>
             <authContext.Provider value={{ user, loading, login,logout}}>

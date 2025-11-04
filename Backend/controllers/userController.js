@@ -101,3 +101,83 @@ export async function changePassword(req,res){
          return res.status(500).send({message:"something went wrong",error:error.message})
     }
 }
+
+export const getAllEmployees = async(req,res)=>{
+    try {
+        const employees = await User.find({role:"employee"}).select("-password -createdAt -updatedAt -__v")
+
+            return res.status(200).send(employees)
+        
+    } catch (error) {
+        return res.status(500).send({message:"something went wrong",error:error.message})
+    }
+}
+
+export const getAllAdmins = async(req,res)=>{
+    try {
+        const admins = await User.find({role:"admin"})
+            return res.status(200).send(admins)
+    } catch (error) {
+        return res.status(500).send({message:"something went wrong",error:error.message})
+    }
+}
+
+
+
+export const editUser = async(req,res)=>{
+  try {
+    
+    const {userid} = req.headers;
+
+    if(userid){
+        let user = await User.findById(userid)
+
+        if(user){
+            
+            await User.findByIdAndUpdate(userid,{$set:{...req.body}})
+             return res.status(200).send({ message: "user updated successfully"});
+        }else{
+             return res.status(400).send({message: "user is not exists"});
+        }
+    }else{
+        return res.status(400).send({message: "provide user id"});
+    }
+   
+   
+    } catch (error) {
+          return res.status(500).send({message:"something went wrong",error:error.message})
+    }
+    
+
+}
+
+
+
+export const deleteUser = async(req,res)=>{
+  try {
+    
+    const {userid} = req.headers;
+    console.log(userid)
+
+    if(userid){
+        let user = await User.findById(userid)
+
+        if(user){
+            
+            await User.findByIdAndDelete(userid)
+             return res.status(200).send({ message: "User deleted successfully"});
+        }else{
+             return res.status(400).send({message: "user is not exists"});
+        }
+    }else{
+        return res.status(400).send({message: "provide User id"});
+    }
+   
+   
+    } catch (error) {
+          return res.status(500).send({message:"something went wrong",error:error.message})
+    }
+    
+
+}
+

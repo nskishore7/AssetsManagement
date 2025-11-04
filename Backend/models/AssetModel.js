@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 const assetModelSchema = new mongoose.Schema({
-    name: { type: String, required: true },
+    name: { type: String, required: true,unique:true },
     category: { type: String, required: true },
     manufacturer: { type: String },
     depreciationMethod: {
