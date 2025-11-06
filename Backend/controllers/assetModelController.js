@@ -27,19 +27,20 @@ export const addAsset = async (req, res) => {
 
 export const editAssetModel = async (req, res) => {
     try {
-        const { id, ...updateData } = req.body;
 
-        if (!id) {
-            return res.status(400).json({ message: "Asset Model ID required" });
+        if (req.body) {
+            let { id } = req.params //get the id from req params
+            let response = await AssetModel.findByIdAndUpdate(id, { $set: { ...req.body } })
+            if (response) {
+                return res.status(200).json({ message: "Asset Model Updated" });
+            } else {
+                return res.status(400).json({ message: "Asset Model Not Found" });
+            }
+
+        } else {
+            return res.status(400).json({ error: "Body can not be empty" });
         }
 
-        const updatedAssetModel = await AssetModel.findByIdAndUpdate(id, updateData);
-
-        if (!updatedAssetModel) {
-            return res.status(404).json({ message: "Asset Model not found" });
-        }
-
-        return res.status(200).json({ message: "Updated successfully" });
 
     } catch (error) {
         return res.status(500).json({ message: "Server error", error: error.message });
@@ -49,20 +50,12 @@ export const editAssetModel = async (req, res) => {
 
 export const deleteAssetModel = async (req, res) => {
     try {
-        const { id } = req.body;
-
-        if (id) {
-            let asset = await AssetModel.findById(id)
-
-            if (asset) {
-
-                await AssetModel.findByIdAndDelete(id)
-                return res.status(200).send({ message: "User deleted successfully" });
-            } else {
-                return res.status(400).send({ message: "user is not exists" });
-            }
+        let { id } = req.query  //get the id from req query ?id=
+        let response = await AssetModel.findByIdAndDelete(id)
+        if (response) {
+            return res.status(200).json({ message: "Asset Model Deleted" })
         } else {
-            return res.status(400).send({ message: "provide User id" });
+            return res.status(400).json({ message: "Asset Model Not Found" })
         }
 
     } catch (error) {

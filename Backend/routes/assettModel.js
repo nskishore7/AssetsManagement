@@ -14,7 +14,7 @@ assetModelRouter.get('/',(req,res)=> res.send({message:"asset router is working"
 assetModelRouter.post('/add',verifyUser,checkRole(["super admin","admin"]),addAsset)
 
 //edit assetmodel
-assetModelRouter.put('/edit',verifyUser,checkRole(["super admin","admin"]),editAssetModel)
+assetModelRouter.put('/edit/:id',verifyUser,checkRole(["super admin","admin"]),editAssetModel)
 
 //delete assetmodel
 assetModelRouter.delete('/delete',verifyUser,checkRole(["super admin","admin"]),deleteAssetModel)
