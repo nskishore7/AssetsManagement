@@ -1,6 +1,6 @@
 import express from "express"
 import { verifyUser } from "../middlwares/verifyUser.js";
-import { addAsset, deleteAssetModel, editAssetModel } from "../controllers/assetModelController.js";
+import { addAsset, deleteAssetModel, editAssetModel, getAssetModel, getAssetModelsWithItems } from "../controllers/assetModelController.js";
 import checkRole from "../middlwares/checkRole.js";
 
 
@@ -18,5 +18,11 @@ assetModelRouter.put('/edit/:id',verifyUser,checkRole(["super admin","admin"]),e
 
 //delete assetmodel
 assetModelRouter.delete('/delete',verifyUser,checkRole(["super admin","admin"]),deleteAssetModel)
+
+// get all assetModel
+assetModelRouter.get("/all",verifyUser,getAssetModel)
+
+// get all with items
+assetModelRouter.get('/all/items',verifyUser,getAssetModelsWithItems)
 
 export default assetModelRouter;

@@ -7,8 +7,9 @@ import authRouter from "./routes/authRouter.js"
 import cookieParser from "cookie-parser"
 
 import createSuperAdmin from "./configs/createSuperAdmin.js"
-import assetModelRouter from "./routes/assettModel.js"
+
 import assetItemRouter from "./routes/assetItemRoute.js"
+import assetModelRouter from "./routes/assettModelRoute.js"
 
 const app = express()
 

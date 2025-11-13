@@ -2,6 +2,7 @@ import AssetItem from "../models/AssetItem.js"
 
 
 
+
 export const addAssetItem =  async(req,res)=>{
     try {
         if(req.body){
@@ -21,20 +22,20 @@ export const addAssetItem =  async(req,res)=>{
 
 export const editAssetItem = async (req, res) => {
     try {
-        if(!req.body) return res.status(400).json({ message: "required req.body" });
-        const { id, ...updateData } = req.body;
 
-        if (!id) {
-            return res.status(400).json({ message: "Asset Item ID required" });
+        if (req.body) {
+            let { id } = req.params //get the id from req params :id
+            let response = await AssetItem.findByIdAndUpdate(id, { $set: { ...req.body } })
+            if (response) {
+                return res.status(200).json({ message: "Asset Item Updated" });
+            } else {
+                return res.status(400).json({ message: "Asset Item Not Found" });
+            }
+
+        } else {
+            return res.status(400).json({ error: "Body can not be empty" });
         }
 
-        const updatedAssetItem = await AssetItem.findByIdAndUpdate(id, updateData);
-
-        if (!updatedAssetItem) {
-            return res.status(404).json({ message: "Asset item not found" });
-        }
-
-        return res.status(200).json({ message: "Updated successfully" });
 
     } catch (error) {
         return res.status(500).json({ message: "Server error", error: error.message });
@@ -42,25 +43,28 @@ export const editAssetItem = async (req, res) => {
 };
 
 
-export const deleteAssetItem = async(req,res)=>{
+export const deleteAssetItem = async (req, res) => {
     try {
-         if(!req.body) return res.status(400).json({ message: "required req.body" });
-        const { id } = req.body;
-
-        if (id) {
-            let asset = await AssetItem.findById(id)
-
-            if (asset) {
-
-                await AssetItem.findByIdAndDelete(id)
-                return res.status(200).send({ message: "asset item deleted successfully" });
-            } else {
-                return res.status(400).send({ message: "Asset is not exists" });
-            }
+        let { id } = req.query  //get the id from req query ?id=
+        let response = await AssetItem.findByIdAndDelete(id)
+        if (response) {
+            return res.status(200).json({ message: "Asset Item Deleted" })
         } else {
-            return res.status(400).send({ message: "provide Asset item id" });
+            return res.status(400).json({ message: "Asset Item Not Found" })
         }
+
     } catch (error) {
         return res.status(500).json({ message: "Server error", error: error.message });
     }
+};
+
+
+export const getAssetItem = async(req,res)=>{
+    try {
+        const response  = await AssetItem.find().populate("model")
+            return res.status(200).send(response)
+    } catch (error) {
+         return res.status(500).send({message:"Something went wrong",error:error.message})
+    }
 }
+
