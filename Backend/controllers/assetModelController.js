@@ -55,7 +55,7 @@ export const deleteAssetModel = async (req,res) => {
         let isModel = await AssetModel.findById(id)
         if (isModel) {
 
-            let isItems = await AssetItem.find({model: id})
+            let isItems = await AssetItem.findOne({model: id})
             if (isItems) {
                 return res.status(400).json({ message: "can't delete the model used for items" })
             }else{
