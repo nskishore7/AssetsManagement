@@ -1,5 +1,7 @@
-import AssetItem from "../models/AssetItem.js";
+import mongoose from "mongoose";
 import AssetModel from "../models/AssetModel.js";
+
+
 
 export const addAsset = async (req, res) => {
 
@@ -49,20 +51,20 @@ export const editAssetModel = async (req, res) => {
 };
 
 
-export const deleteAssetModel = async (req,res) => {
+export const deleteAssetModel = async (req, res) => {
     try {
         let { id } = req.query  //get the id from req query ?id=123456789
         let isModel = await AssetModel.findById(id)
         if (isModel) {
 
-            let isItems = await AssetItem.findOne({model: id})
+            let isItems = await AssetItem.findOne({ model: id })
             if (isItems) {
                 return res.status(400).json({ message: "can't delete the model used for items" })
-            }else{
-                 await AssetModel.findByIdAndDelete(id)
-            return res.status(200).json({ message: "Assetmodel deleted" })
+            } else {
+                await AssetModel.findByIdAndDelete(id)
+                return res.status(200).json({ message: "Assetmodel deleted" })
             }
-           
+
         }
 
     } catch (error) {
@@ -100,4 +102,24 @@ export const getAssetModelsWithItems = async (req, res) => {
     }
 }
 
+export const getItemsOfTheModel = async (req, res) => {
+    try {
+        const { id } = req.params
 
+        let allItems = await AssetModel.aggregate([
+            { $match: { _id: new mongoose.Types.ObjectId(id) } },
+            {
+                $lookup: {
+                    localField: "_id",
+                    from: "assetitems",
+                    foreignField: "model",
+                    as: "items",
+                },
+            },
+        ]);
+
+        res.status(200).send(allItems[0])
+    } catch (error) {
+        return res.status(500).send({ message: "Something went wrong", error: error.message })
+    }
+} 

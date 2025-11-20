@@ -1,7 +1,7 @@
 import express from "express"
 import { verifyUser } from "../middlwares/verifyUser.js"
 import checkRole from "../middlwares/checkRole.js"
-import { addAssetItem, deleteAssetItem, editAssetItem, getAssetItem } from "../controllers/assetItemController.js"
+import { addAssetItem, deleteAssetItem, editAssetItem, getAssetItem} from "../controllers/assetItemController.js"
 
 const assetItemRouter = express.Router()
 
@@ -17,5 +17,7 @@ assetItemRouter.delete("/delete",verifyUser,checkRole(["super admin","admin"]),d
 
 // get all Asset Item
 assetItemRouter.get('/all',verifyUser,getAssetItem)
+
+
 
 export default assetItemRouter;

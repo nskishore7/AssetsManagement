@@ -21,6 +21,6 @@ const userSchema = new mongoose.Schema({
 },{timestamps:true})  // this timestamps will create 2 default field (create,updated)
 
 
-const User = mongoose.model("users",userSchema)
+const User = mongoose.model("Users",userSchema)
 
 export default User;

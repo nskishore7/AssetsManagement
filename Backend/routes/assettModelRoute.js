@@ -1,6 +1,6 @@
 import express from "express"
 import { verifyUser } from "../middlwares/verifyUser.js";
-import { addAsset, deleteAssetModel, editAssetModel, getAssetModel, getAssetModelsWithItems } from "../controllers/assetModelController.js";
+import { addAsset, deleteAssetModel, editAssetModel, getAssetModel, getAssetModelsWithItems, getItemsOfTheModel } from "../controllers/assetModelController.js";
 import checkRole from "../middlwares/checkRole.js";
 
 
@@ -24,5 +24,8 @@ assetModelRouter.get("/all",verifyUser,getAssetModel)
 
 // get all with items
 assetModelRouter.get('/all/items',verifyUser,getAssetModelsWithItems)
+
+//get asset model wih items
+assetModelRouter.get("/:id",verifyUser,getItemsOfTheModel)
 
 export default assetModelRouter;

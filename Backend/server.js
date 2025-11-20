@@ -10,6 +10,7 @@ import createSuperAdmin from "./configs/createSuperAdmin.js"
 
 import assetItemRouter from "./routes/assetItemRoute.js"
 import assetModelRouter from "./routes/assettModelRoute.js"
+import assignedAssetRouter from "./routes/assignedAssetRoute.js"
 
 const app = express()
 
@@ -28,6 +29,10 @@ app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
 app.use("/api/v1/asset-model", assetModelRouter)
 app.use("/api/v1/asset-item", assetItemRouter)
+app.use("/api/v1/assigned-asset",assignedAssetRouter)
+
+
+
 
 
 
