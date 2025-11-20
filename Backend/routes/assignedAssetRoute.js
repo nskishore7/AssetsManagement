@@ -1,7 +1,7 @@
 import {Router} from "express"
 import { verifyUser } from "../middlwares/verifyUser.js";
 import checkRole from "../middlwares/checkRole.js";
-import { addAssignedAsset, getAllAssignedAsset, getMyAsset } from "../controllers/assignedAssetController.js";
+import { addAssignedAsset, getAllAssignedAsset, getMyAsset, updateAssignedAsset } from "../controllers/assignedAssetController.js";
 
 
 const assignedAssetRouter = Router();
@@ -19,5 +19,9 @@ assignedAssetRouter.get('/all',verifyUser,checkRole(["super admin","admin"]),get
 
 // get my assets
 assignedAssetRouter.get("/myassets",verifyUser,getMyAsset)
+
+//update asets
+assignedAssetRouter.put("/edit/:id",verifyUser,checkRole(["admin","super admin"]),updateAssignedAsset)
+
 
 export default assignedAssetRouter;

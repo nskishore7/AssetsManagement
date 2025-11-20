@@ -84,3 +84,22 @@ export const getMyAsset = async(req,res)=>{
         return res.status(500).send({error:"Something Went Wrong",message:error.message})
     }
 }
+
+export const updateAssignedAsset = async(req,res)=>{
+    try {
+        const {id} = req.params
+
+        if(req.body){
+            let response = await AssignedAsset.updateOne(id,{ $set: { ...req.body } })
+            if(response){
+                return res.status(200).send({message:"Assigned Asset updated"})
+            }else{
+                return res.status(200).send({message:"Assigned Asset Not updated"})
+            }
+        }else{
+            return res.status(500).send({message:"body can't be empty"})
+        }  
+    } catch (error) {
+        return res.status(500).send({error:"Something Went Wrong",message:error.message})
+    }
+}
